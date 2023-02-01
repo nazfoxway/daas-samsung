@@ -64,7 +64,7 @@ export default function DevelopmentTable(props) {
           fontSize='22px'
           fontWeight='700'
           lineHeight='100%'>
-          Development Table
+          {props.name}
         </Text>
         <Menu />
       </Flex>

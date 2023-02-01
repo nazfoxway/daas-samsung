@@ -57,18 +57,51 @@ import {
 } from "views/admin/default/variables/columnsData";
 import tableDataCheck from "views/admin/default/variables/tableDataCheck.json";
 import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
+import { useState, useEffect } from 'react';
+
+
+
+
 
 export default function UserReports() {
+
+
+  
   // Chakra Color Mode
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+
+
+  const [data, setData] = useState([[{"SWE": {"approved": 0, "declined": 0}}],[{"NOR": {"approved": 0, "declined": 0}}], [{"FIN": {"approved": 0, "declined": 0}}], [{"DNK": {"approved": 0, "declined": 0}}]]);
+  async function fetchData() {
+    const response = await fetch('https://x2qgw8fc24.execute-api.eu-west-1.amazonaws.com/cards_data');
+    const jsonData = await response.json();
+
+    setData(jsonData['approval_stats_by_country']);
+    return 1
+  }
+
+
+  useEffect(() => {
+  
+    fetchData()
+
+    
+  }, []);
+
+
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+
       <SimpleGrid
-        columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }}
+
+        columns={{ base: 1, md: 2, lg: 4, "2xl": 4 }}
         gap='20px'
         mb='20px'>
+
+      {data.map((item, index) => (
         <MiniStatistics
+          key={index}
           startContent={
             <IconBox
               w='56px'
@@ -79,10 +112,14 @@ export default function UserReports() {
               }
             />
           }
-          name='Earnings'
-          value='$350.4'
+          // growth={item[Object.keys(item)[0]].declined +' '+Math.round(item[Object.keys(item)[0]].declined/item[Object.keys(item)[0]].approved,2)*100 +'% approval rate'}
+          growth={item[Object.keys(item)[0]].declined +' declined'}
+          name= { 'Approved ' +Object.keys(item)[0]}
+          value={item[Object.keys(item)[0]].approved}
         />
-        <MiniStatistics
+      ))}
+
+        {/* <MiniStatistics
           startContent={
             <IconBox
               w='56px'
@@ -115,7 +152,8 @@ export default function UserReports() {
               </Select>
             </Flex>
           }
-          name='Your balance'
+          // name={data[0].country_code}
+          name='ok'
           value='$1,000'
         />
         <MiniStatistics
@@ -143,10 +181,10 @@ export default function UserReports() {
           }
           name='Total Projects'
           value='2935'
-        />
+        /> */}
       </SimpleGrid>
 
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
+      {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
         <TotalSpent />
         <WeeklyRevenue />
       </SimpleGrid>
@@ -166,7 +204,7 @@ export default function UserReports() {
           <Tasks />
           <MiniCalendar h='100%' minW='100%' selectRange={false} />
         </SimpleGrid>
-      </SimpleGrid>
+      </SimpleGrid> */}
     </Box>
   );
 }

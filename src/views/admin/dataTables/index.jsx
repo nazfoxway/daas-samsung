@@ -47,18 +47,28 @@ export default function Settings() {
         columns={{ sm: 1, md: 2 }}
         spacing={{ base: "20px", xl: "20px" }}>
         <DevelopmentTable
+          name='Sweden'
           columnsData={columnsDataDevelopment}
           tableData={tableDataDevelopment}
         />
-        <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} />
+        <DevelopmentTable
+          name='Norway'
+          columnsData={columnsDataDevelopment}
+          tableData={tableDataDevelopment}
+        />
+        {/* <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} /> */}
         <ColumnsTable
           columnsData={columnsDataColumns}
           tableData={tableDataColumns}
         />
-        <ComplexTable
+         <ColumnsTable
+          columnsData={columnsDataColumns}
+          tableData={tableDataColumns}
+        />
+        {/* <ComplexTable
           columnsData={columnsDataComplex}
           tableData={tableDataComplex}
-        />
+        /> */}
       </SimpleGrid>
     </Box>
   );
