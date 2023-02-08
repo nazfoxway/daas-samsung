@@ -72,12 +72,13 @@ export default function UserReports() {
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
 
 
-  const [data, setData] = useState([[{"SWE": {"approved": 0, "declined": 0}}],[{"NOR": {"approved": 0, "declined": 0}}], [{"FIN": {"approved": 0, "declined": 0}}], [{"DNK": {"approved": 0, "declined": 0}}]]);
+  const [data, setData] = useState([[{"SWE": {"approved": 'svea maintainance', "declined": 'svea maintainance'}}],[{"NOR": {"approved": 'svea maintainance', "declined": 'svea maintainance'}}], [{"FIN": {"approved": 'svea maintainance', "declined": 'svea maintainance'}}], [{"DNK": {"approved": 'svea maintainance', "declined": 'svea maintainance'}}]]);
+  // const [data, setData] = useState([[{"SWE": {"approved": 0, "declined": 0}}],[{"NOR": {"approved": 0, "declined": 0}}], [{"FIN": {"approved": 0, "declined": 0}}], [{"DNK": {"approved": 0, "declined": 0}}]]);
   async function fetchData() {
     const response = await fetch('https://x2qgw8fc24.execute-api.eu-west-1.amazonaws.com/cards_data');
     const jsonData = await response.json();
 
-    setData(jsonData['approval_stats_by_country']);
+    // setData(jsonData['approval_stats_by_country']);
     return 1
   }
 
